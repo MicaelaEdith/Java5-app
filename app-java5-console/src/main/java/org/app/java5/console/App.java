@@ -1,13 +1,19 @@
 package org.app.java5.console;
 
-/**
- * Hello world!
- *
- */
+import org.app.java5.services.ServicesDB;
+
+
 public class App 
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+    	ServicesDB serviceDB = new ServicesDB();
+     
+        try {
+            serviceDB.pruebaConectividad();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+    
 }
