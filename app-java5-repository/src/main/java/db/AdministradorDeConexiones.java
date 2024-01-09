@@ -14,14 +14,12 @@ public static Connection getConnection() {
 		
 		try {
 			Class.forName(driverClassName);
-			System.out.println("conectado");
 			return DriverManager.getConnection(url,username,passwordDB);
 			
 		}catch(Exception ex){
 			throw new IllegalArgumentException("Error al conectar a DB: "+driverClassName);
 			
 		}
-		
 		
 	}
 
