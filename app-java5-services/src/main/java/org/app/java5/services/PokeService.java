@@ -19,6 +19,13 @@ public class PokeService {
 		Pokemon found = repository.findById(id);
 		System.out.println(found);
 	}
+
+	public void findByName(String name) {
+		PokeRepositoryImpl repository = new PokeRepositoryImpl();
+		Pokemon found = repository.findByName(name);
+		System.out.println(found);
+		
+	}
 	
 
 }

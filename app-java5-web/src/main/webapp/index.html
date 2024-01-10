@@ -3,39 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>app-web</title>
-
-    <script>
-
-    const getDatos = () => {
-            fetch('http://localhost:8080/app-java5-web/api/pokemon')
-            .then(
-                response => response.json()
-            ).then(
-                data => console.log(data)
-            );
+    <title>Java 5</title>
+    <style>
+        body{
+            font-family: 'Courier New', Courier, monospace;
+            color: #444444;
+            padding-top: 2vh;
+            padding-left: 2vw;
         }
-        
-        </script>
-        
+        button{
+            width: 100px;
+            height: 20px;
+            color: grey;
+            background-color: rgb(240, 238, 238);
+            border:0;
+            border-radius: 3px;
+        }
+
+        img{
+            margin: 0;
+            padding: 0;
+        }
+
+    </style>
+
 </head>
 <body>
-    <button onclick="getDatos()">
-        Get Datos
-    </button>
-    <hr>
-    <fieldset>
-        <legend>
-            Seleccionar archivo
-        </legend>
-        <form method="POST" 
-            action="http://localhost:8080/app-java5-web/api/pokemon"
-            enctype="multipart/form-data">
-            <input type="file" name="file">        
-            <button type="submit">
-                Subir arhivos
-            </button>
-    </form>
-</fieldset>
+    <div>
+    <h2>Buscar Pokémon</h2>
+
+    <label for="pokemonInput">ID o Nombre del Pokémon:</label>
+    <input type="text" id="pokemonInput" />
+    <button onclick="buscarPokemon()">Buscar</button>
+
+        <h2>Resultados</h2>
+        <div id="resultado"></div>
+    
+        <script>
+            function buscarPokemon() {
+                // Obtener el valor del input
+                var pokemonIdOrName = document.getElementById("pokemonInput").value;
+    
+                // Realizar la solicitud al backend para verificar si el Pokémon está en la base de datos
+                fetch(`/tu-endpoint-backend?pokemon=${pokemonIdOrName}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`Error en la solicitud al backend: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.enBaseDeDatos) {
+                            // El Pokémon está en la base de datos, obtener datos del backend
+                            obtenerDatosDesdeBackend(pokemonIdOrName);
+                        } else {
+                            // El Pokémon no está en la base de datos, realizar la solicitud a la API
+                            obtenerDatosDesdeAPI(pokemonIdOrName);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error en la solicitud al backend:", error);
+                        // En caso de error al verificar en el backend, realizar la solicitud a la API
+                        obtenerDatosDesdeAPI(pokemonIdOrName);
+                    });
+            }
+    
+            function obtenerDatosDesdeBackend(pokemonIdOrName) {
+                // Realizar la solicitud al backend para obtener datos del Pokémon
+                fetch(`/tu-endpoint-backend/obtener-datos?pokemon=${pokemonIdOrName}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`Error al obtener datos desde el backend: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Mostrar los resultados
+                        mostrarResultados(data);
+                    })
+                    .catch(error => {
+                        console.error("Error al obtener datos desde el backend:", error);
+                        var resultadoDiv = document.getElementById("resultado");
+                        resultadoDiv.innerHTML = "<p>Error al obtener datos desde el backend.</p>";
+                    });
+            }
+    
+            function obtenerDatosDesdeAPI(pokemonIdOrName) {
+                // Construir la URL de la API
+                var apiUrl = "https://pokeapi.co/api/v2/pokemon/" + pokemonIdOrName.toLowerCase();
+    
+                // Realizar la solicitud a la API
+                fetch(apiUrl)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`Error en la solicitud a la API: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Mostrar los resultados
+                        mostrarResultados(data);
+    
+                        // Aquí puedes enviar los datos al backend si es necesario
+                    })
+                    .catch(error => {
+                        console.error("Error al obtener datos desde la API:", error);
+                        var resultadoDiv = document.getElementById("resultado");
+                        resultadoDiv.innerHTML = "<p>Error al obtener datos desde la API. Verifica el ID o nombre.</p>";
+                    });
+            }
+    
+            function mostrarResultados(data) {
+                // Extraer los datos necesarios
+                var nombrePokemon = data.name;
+                var idPokemon = data.id;
+                var urlImagen = data.sprites.front_default;
+    
+                // Mostrar los resultados
+                var resultadoDiv = document.getElementById("resultado");
+                resultadoDiv.innerHTML = `
+                    <p>Nombre: ${nombrePokemon} - ID: ${idPokemon}</p>
+                    <p>Imagen:</p>
+                    <img src="${urlImagen}" alt="${nombrePokemon}" width="170">
+                `;
+            }
+        </script>
+    </div>
 </body>
 </html>

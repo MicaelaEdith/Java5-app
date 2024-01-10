@@ -20,8 +20,8 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
-         <dependency>
-    	<groupId>ar.com.java5</groupId>
+    <dependency>
+		<groupId>ar.com.java5</groupId>
 		<artifactId>app-java5-services</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</dependency>

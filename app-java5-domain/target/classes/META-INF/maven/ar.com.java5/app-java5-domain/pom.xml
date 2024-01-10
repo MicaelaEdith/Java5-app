@@ -7,14 +7,12 @@
     <artifactId>app-java5-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>ar.com.java5</groupId>
+  
   <artifactId>app-java5-domain</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  
   <name>app-java5-domain</name>
   <url>http://maven.apache.org</url>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>

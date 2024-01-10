@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="AR"/>
     <property name="sun.boot.library.path" value="C:\Program Files\OpenLogic\jdk-17.0.9.9-hotspot\bin"/>
-    <property name="sun.java.command" value="C:\Users\micka\AppData\Local\Temp\surefire3391332554506978554\surefirebooter-20240109163040890_12.jar C:\Users\micka\AppData\Local\Temp\surefire3391332554506978554 2024-01-09T16-30-38_649-jvmRun1 surefire-20240109163040890_10tmp surefire_3-20240109163040890_11tmp"/>
+    <property name="sun.java.command" value="C:\Users\micka\AppData\Local\Temp\surefire6097364276096736189\surefirebooter-20240110132902971_12.jar C:\Users\micka\AppData\Local\Temp\surefire6097364276096736189 2024-01-10T13-29-00_794-jvmRun1 surefire-20240110132902971_10tmp surefire_3-20240110132902971_11tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="C:\Users\micka\Documents\workspace-spring-tool-suite-4-4.20.1.RELEASE\app-java5-parent\app-java5-console\target\test-classes;C:\Users\micka\Documents\workspace-spring-tool-suite-4-4.20.1.RELEASE\app-java5-parent\app-java5-console\target\classes;C:\Users\micka\.m2\repository\junit\junit\3.8.1\junit-3.8.1.jar;C:\Users\micka\Documents\workspace-spring-tool-suite-4-4.20.1.RELEASE\app-java5-parent\app-java5-services\target\app-java5-services-0.0.1-SNAPSHOT.jar;C:\Users\micka\Documents\workspace-spring-tool-suite-4-4.20.1.RELEASE\app-java5-parent\app-java5-repository\target\app-java5-repository-0.0.1-SNAPSHOT.jar;C:\Users\micka\Documents\workspace-spring-tool-suite-4-4.20.1.RELEASE\app-java5-parent\app-java5-domain\target\app-java5-domain-0.0.1-SNAPSHOT.jar;C:\Users\micka\.m2\repository\com\mysql\mysql-connector-j\8.2.0\mysql-connector-j-8.2.0.jar;C:\Users\micka\.m2\repository\com\google\protobuf\protobuf-java\3.21.9\protobuf-java-3.21.9.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -31,7 +31,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\micka\AppData\Local\Temp\surefire3391332554506978554\surefirebooter-20240109163040890_12.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\micka\AppData\Local\Temp\surefire6097364276096736189\surefirebooter-20240110132902971_12.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="17.0.9+9-adhoc..jdk17u"/>
