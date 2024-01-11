@@ -6,3 +6,12 @@ CREATE TABLE `pokemon` (
 COLLATE='latin1_spanish_ci'
 ENGINE=InnoDB
 ;
+
+CREATE TABLE `covid` (
+	`date` DATE NOT NULL,
+	`cases` BIGINT(20) NOT NULL DEFAULT '0',
+	PRIMARY KEY (`date`) USING BTREE
+)
+COLLATE='latin1_spanish_ci'
+ENGINE=InnoDB
+;

@@ -10,7 +10,7 @@ public class App {
 
 		 CovidService service = new CovidService();
 		 service.saveDataDay(LocalDate.now(), 6546854L);
-
+		 service.getCases(LocalDate.now());
 
 	}
 }

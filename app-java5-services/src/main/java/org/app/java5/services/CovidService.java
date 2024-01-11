@@ -13,17 +13,12 @@ public class CovidService {
 		
 		CovidRepositoryImpl repository = new CovidRepositoryImpl();
 		Long found = repository.getCases(date);
-		
-		System.out.println(found);
 		return found;
 	}
 	
 	public void saveDataDay(LocalDate date, Long cases) throws SQLException {
 		CovidRepositoryImpl repository = new CovidRepositoryImpl();
 		repository.saveDataDay(date, cases);
-		
-		System.out.println("enviado a DB");
-		
 	}
 
 }

@@ -3,39 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>app-web</title>
-
-    <script>
-
-    const getDatos = () => {
-            fetch('http://localhost:8080/app-java5-web/api/pokemon')
-            .then(
-                response => response.json()
-            ).then(
-                data => console.log(data)
-            );
+    <title>Java 5</title>
+    <style>
+        body{
+            font-family: 'Courier New', Courier, monospace;
+            color: #444444;
+            padding-top: 2vh;
+            padding-left: 2vw;
         }
-        
-        </script>
-        
+        button{
+            width: 100px;
+            height: 20px;
+            color: grey;
+            background-color: rgb(240, 238, 238);
+            border:0;
+            border-radius: 3px;
+        }
+
+        img{
+            margin: 0;
+            padding: 0;
+        }
+        div{
+            margin:10px;
+        }
+
+    </style>
+
 </head>
 <body>
-    <button onclick="getDatos()">
-        Get Datos
-    </button>
+
+     <!-- Script Covid Tracking -->
+
+     <hr>
+     <div id="resultadoCovid">
+
+        <label for="dateInput">Date Covid Cases:</label>
+        <input type="date" id="dateCovid" />
+        <button onClick="covid()">Buscar</button>
+
+        <script>   
+            function covid() {
+                var date = document.getElementById("dateCovid").value;
+    
+                fetch(`http://localhost:8080/app-java5-web/api/covid?date=${date}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`Error al obtener datos: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        mostrarResultados(data);
+                    })
+                    .catch(error => {
+                        console.error("Error al obtener datos:", error);
+                        var resultadoDiv = document.getElementById("resultadoCovid");
+                        resultadoDiv.innerHTML = "<p>Error al obtener datos.</p>";
+                    });
+            }
+            function mostrarResultados(data) {
+                var cases = data.cases;
+
+                var resultadoDiv = document.getElementById("resultadoCovid");
+                resultadoDiv.innerHTML = `
+                    <p>Fecha: ${date} - Casos: ${cases}</p>
+                `;
+            }
+    </script>
+
+    
+
+
+     </div>
+    <!-- Script JSON Placeholder-->
+    
+
     <hr>
-    <fieldset>
-        <legend>
-            Seleccionar archivo
-        </legend>
-        <form method="POST" 
-            action="http://localhost:8080/app-java5-web/api/pokemon"
-            enctype="multipart/form-data">
-            <input type="file" name="file">        
-            <button type="submit">
-                Subir arhivos
-            </button>
-    </form>
-</fieldset>
+    <!-- Script Pokemon API -->
+
+    <div>
+    <h2>Buscar Pokémon</h2>
+
+    <label for="pokemonInput">ID o Nombre del Pokémon:</label>
+    <input type="text" id="pokemonInput" />
+    <button onClick="buscarPokemon()">Buscar</button>
+
+        <h2>Resultados</h2>
+        <div id="resultado"></div>
+        <script>   
+            function buscarPokemon() {
+                var pokemonIdOrName = document.getElementById("pokemonInput").value;
+    
+                fetch(`http://localhost:8080/app-java5-web/api/pokemon?pokemon=${pokemonIdOrName}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`Error al obtener datos: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        mostrarResultados(data);
+                    })
+                    .catch(error => {
+                        console.error("Error al obtener datos:", error);
+                        var resultadoDiv = document.getElementById("resultado");
+                        resultadoDiv.innerHTML = "<p>Error al obtener datos.</p>";
+                    });
+            }
+            function mostrarResultados(data) {
+                var nombrePokemon = data.name;
+                var idPokemon = data.id;
+                var urlImagen = data.sprites.front_default;
+
+                var resultadoDiv = document.getElementById("resultado");
+                resultadoDiv.innerHTML = `
+                    <p>Nombre: ${nombrePokemon} - ID: ${idPokemon}</p>
+                    <p>Imagen:</p>
+                    <img src="${urlImagen}" alt="${nombrePokemon}" width="170">
+                `;
+            }
+    </script>
+    </div>
 </body>
 </html>

@@ -16,7 +16,6 @@ public class PokeService {
 	public Pokemon findById(Long id) {
 		PokeRepositoryImpl repository = new PokeRepositoryImpl();
 		Pokemon found = repository.findById(id);
-		System.out.println(found);
 		return found;
 	}
 

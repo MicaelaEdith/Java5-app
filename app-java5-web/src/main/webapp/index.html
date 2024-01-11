@@ -1,60 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Java 5</title>
     <style>
-        body{
+        body {
             font-family: 'Courier New', Courier, monospace;
             color: #444444;
             padding-top: 2vh;
             padding-left: 2vw;
         }
-        button{
-            width: 100px;
+
+        button {
+            width: 140px;
             height: 20px;
             color: grey;
             background-color: rgb(240, 238, 238);
-            border:0;
+            border: 0;
             border-radius: 3px;
         }
 
-        img{
+        img {
             margin: 0;
             padding: 0;
         }
-        div{
-            margin:10px;
-        }
 
+        div {
+            margin: 10px;
+        }
     </style>
 
 </head>
+
 <body>
 
-     <!-- Script Covid Tracking -->
+    <!-- Script Covid Tracking -->
 
-     <hr>
-     <div id="resultadoCovid">
+    <hr>
+    <div id="resultadoCovid">
 
         <label for="dateInput">Date Covid Cases:</label>
         <input type="date" id="dateCovid" />
-        <button onClick="covid()">Buscar</button>
+        <button onClick="buscarCovid()">Buscar Casos</button>
 
-        <script>   
-            function covid() {
+        <script>
+            function buscarCovid() {
                 var date = document.getElementById("dateCovid").value;
-    
                 fetch(`http://localhost:8080/app-java5-web/api/covid?date=${date}`)
                     .then(response => {
                         if (!response.ok) {
                             throw new Error(`Error al obtener datos: ${response.status}`);
                         }
-                        return response.json();
+                        return response.text();
                     })
                     .then(data => {
-                        mostrarResultados(data);
+                        mostrarResultadosCovid(data);
                     })
                     .catch(error => {
                         console.error("Error al obtener datos:", error);
@@ -62,45 +64,42 @@
                         resultadoDiv.innerHTML = "<p>Error al obtener datos.</p>";
                     });
             }
-            function mostrarResultados(data) {
-                var cases = data.cases;
 
+            function mostrarResultadosCovid(data) {
                 var resultadoDiv = document.getElementById("resultadoCovid");
-                resultadoDiv.innerHTML = `
-                    <p>Fecha: ${date} - Casos: ${cases}</p>
-                `;
+                var response = JSON.parse(data);
+
+                if (response.success) {
+                    resultadoDiv.innerHTML = `<p>Resultados: ${response.data}</p>`;
+                } else {
+                    resultadoDiv.innerHTML = `<p>${response.data}</p>`;
+                }
             }
-    </script>
+        </script>
 
-    
+    </div>
 
-
-     </div>
-    <!-- Script JSON Placeholder-->
-    
-
-    <hr>
     <!-- Script Pokemon API -->
 
+    <hr>
     <div>
-    <h2>Buscar Pokémon</h2>
+        <h2>Buscar Pokémon</h2>
 
-    <label for="pokemonInput">ID o Nombre del Pokémon:</label>
-    <input type="text" id="pokemonInput" />
-    <button onClick="buscarPokemon()">Buscar</button>
+        <label for="pokemonInput">ID o Nombre del Pokémon:</label>
+        <input type="text" id="pokemonInput" />
+        <button onClick="buscarPokemon()">Buscar Pókemon</button>
 
         <h2>Resultados</h2>
         <div id="resultado"></div>
-        <script>   
+        <script>
             function buscarPokemon() {
                 var pokemonIdOrName = document.getElementById("pokemonInput").value;
-    
                 fetch(`http://localhost:8080/app-java5-web/api/pokemon?pokemon=${pokemonIdOrName}`)
                     .then(response => {
                         if (!response.ok) {
                             throw new Error(`Error al obtener datos: ${response.status}`);
                         }
-                        return response.json();
+                        return response.text();
                     })
                     .then(data => {
                         mostrarResultados(data);
@@ -111,19 +110,44 @@
                         resultadoDiv.innerHTML = "<p>Error al obtener datos.</p>";
                     });
             }
+
             function mostrarResultados(data) {
-                var nombrePokemon = data.name;
-                var idPokemon = data.id;
-                var urlImagen = data.sprites.front_default;
+                var rows = data.split('\n');
+                if (rows.length < 2) {
+                    console.error("Error al procesar datos CSV.");
+                    return;
+                }
+
+                var headers = rows[0].split(',');
+                var values = rows[1].split(',');
 
                 var resultadoDiv = document.getElementById("resultado");
-                resultadoDiv.innerHTML = `
-                    <p>Nombre: ${nombrePokemon} - ID: ${idPokemon}</p>
-                    <p>Imagen:</p>
-                    <img src="${urlImagen}" alt="${nombrePokemon}" width="170">
-                `;
+                resultadoDiv.innerHTML = "<p>Resultados:</p>";
+
+                for (var i = 0; i < headers.length; i++) {
+                    if (esUrl(values[i])) {
+                        resultadoDiv.innerHTML += `<img src="${values[i]}" alt="${headers[i]}" width="170">`;
+                    } else {
+                        resultadoDiv.innerHTML += `<p>${headers[i]}: ${values[i]}</p>`;
+                    }
+                }
             }
-    </script>
+
+            function esUrl(str) {
+                var url;
+                try {
+                    url = new URL(str);
+                } catch (e) {
+                    return false;
+                }
+                return url.protocol === "http:" || url.protocol === "https:";
+            }
+
+
+
+        </script>
+
     </div>
 </body>
+
 </html>

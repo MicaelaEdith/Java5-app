@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="org.app.java5.services.AppTest" time="0.016" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="org.app.java5.services.AppTest" time="0.015" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.cpu.isalist" value="amd64"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
-    <property name="java.class.path" value="C:\Users\micka\Documents\workspace-spring-tool-suite-4-4.20.1.RELEASE\app-java5-parent\app-java5-services\target\test-classes;C:\Users\micka\Documents\workspace-spring-tool-suite-4-4.20.1.RELEASE\app-java5-parent\app-java5-services\target\classes;C:\Users\micka\.m2\repository\junit\junit\3.8.1\junit-3.8.1.jar;C:\Users\micka\Documents\workspace-spring-tool-suite-4-4.20.1.RELEASE\app-java5-parent\app-java5-repository\target\app-java5-repository-0.0.1-SNAPSHOT.jar;C:\Users\micka\Documents\workspace-spring-tool-suite-4-4.20.1.RELEASE\app-java5-parent\app-java5-domain\target\app-java5-domain-0.0.1-SNAPSHOT.jar;C:\Users\micka\.m2\repository\com\mysql\mysql-connector-j\8.2.0\mysql-connector-j-8.2.0.jar;C:\Users\micka\.m2\repository\com\google\protobuf\protobuf-java\3.21.9\protobuf-java-3.21.9.jar;"/>
+    <property name="java.class.path" value="C:\Users\micka\Documents\workspace-spring-tool-suite-4-4.20.1.RELEASE\app-java5-parent\app-java5-services\target\test-classes;C:\Users\micka\Documents\workspace-spring-tool-suite-4-4.20.1.RELEASE\app-java5-parent\app-java5-services\target\classes;C:\Users\micka\.m2\repository\junit\junit\3.8.1\junit-3.8.1.jar;C:\Users\micka\.m2\repository\ar\com\java5\app-java5-repository\0.0.1-SNAPSHOT\app-java5-repository-0.0.1-SNAPSHOT.jar;C:\Users\micka\.m2\repository\ar\com\java5\app-java5-domain\0.0.1-SNAPSHOT\app-java5-domain-0.0.1-SNAPSHOT.jar;C:\Users\micka\.m2\repository\com\mysql\mysql-connector-j\8.2.0\mysql-connector-j-8.2.0.jar;C:\Users\micka\.m2\repository\com\google\protobuf\protobuf-java\3.21.9\protobuf-java-3.21.9.jar;"/>
     <property name="java.vm.vendor" value="OpenLogic"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="user.variant" value=""/>
@@ -15,9 +15,9 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="AR"/>
     <property name="sun.boot.library.path" value="C:\Program Files\OpenLogic\jdk-17.0.9.9-hotspot\bin"/>
-    <property name="sun.java.command" value="C:\Users\micka\AppData\Local\Temp\surefire9775718390986679923\surefirebooter-20240110132902448_9.jar C:\Users\micka\AppData\Local\Temp\surefire9775718390986679923 2024-01-10T13-29-00_794-jvmRun1 surefire-20240110132902448_7tmp surefire_2-20240110132902448_8tmp"/>
+    <property name="sun.java.command" value="C:\Users\micka\AppData\Local\Temp\surefire10525311284761557450\surefirebooter-20240111095348760_3.jar C:\Users\micka\AppData\Local\Temp\surefire10525311284761557450 2024-01-11T09-53-48_604-jvmRun1 surefire-20240111095348760_1tmp surefire_0-20240111095348760_2tmp"/>
     <property name="jdk.debug" value="release"/>
-    <property name="surefire.test.class.path" value="C:\Users\micka\Documents\workspace-spring-tool-suite-4-4.20.1.RELEASE\app-java5-parent\app-java5-services\target\test-classes;C:\Users\micka\Documents\workspace-spring-tool-suite-4-4.20.1.RELEASE\app-java5-parent\app-java5-services\target\classes;C:\Users\micka\.m2\repository\junit\junit\3.8.1\junit-3.8.1.jar;C:\Users\micka\Documents\workspace-spring-tool-suite-4-4.20.1.RELEASE\app-java5-parent\app-java5-repository\target\app-java5-repository-0.0.1-SNAPSHOT.jar;C:\Users\micka\Documents\workspace-spring-tool-suite-4-4.20.1.RELEASE\app-java5-parent\app-java5-domain\target\app-java5-domain-0.0.1-SNAPSHOT.jar;C:\Users\micka\.m2\repository\com\mysql\mysql-connector-j\8.2.0\mysql-connector-j-8.2.0.jar;C:\Users\micka\.m2\repository\com\google\protobuf\protobuf-java\3.21.9\protobuf-java-3.21.9.jar;"/>
+    <property name="surefire.test.class.path" value="C:\Users\micka\Documents\workspace-spring-tool-suite-4-4.20.1.RELEASE\app-java5-parent\app-java5-services\target\test-classes;C:\Users\micka\Documents\workspace-spring-tool-suite-4-4.20.1.RELEASE\app-java5-parent\app-java5-services\target\classes;C:\Users\micka\.m2\repository\junit\junit\3.8.1\junit-3.8.1.jar;C:\Users\micka\.m2\repository\ar\com\java5\app-java5-repository\0.0.1-SNAPSHOT\app-java5-repository-0.0.1-SNAPSHOT.jar;C:\Users\micka\.m2\repository\ar\com\java5\app-java5-domain\0.0.1-SNAPSHOT\app-java5-domain-0.0.1-SNAPSHOT.jar;C:\Users\micka\.m2\repository\com\mysql\mysql-connector-j\8.2.0\mysql-connector-j-8.2.0.jar;C:\Users\micka\.m2\repository\com\google\protobuf\protobuf-java\3.21.9\protobuf-java-3.21.9.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\micka"/>
     <property name="user.language" value="es"/>
@@ -31,7 +31,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\micka\AppData\Local\Temp\surefire9775718390986679923\surefirebooter-20240110132902448_9.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\micka\AppData\Local\Temp\surefire10525311284761557450\surefirebooter-20240111095348760_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="17.0.9+9-adhoc..jdk17u"/>
@@ -58,5 +58,5 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="testApp" classname="org.app.java5.services.AppTest" time="0.001"/>
+  <testcase name="testApp" classname="org.app.java5.services.AppTest" time="0.002"/>
 </testsuite>
