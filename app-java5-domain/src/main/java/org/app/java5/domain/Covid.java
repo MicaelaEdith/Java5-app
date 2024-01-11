@@ -13,23 +13,11 @@ public class Covid {
 		this.cases = cases;
 	}
 
-	public LocalDate getFecha() {
-		return fecha;
-	}
-
-
-	public void setFecha(LocalDate fecha) {
-		this.fecha = fecha;
-	}
-
 
 	public Long getCases() {
 		return cases;
 	}
 
-	public void setCases(Long cases) {
-		this.cases = cases;
-	}
 
 	@Override
 	public String toString() {

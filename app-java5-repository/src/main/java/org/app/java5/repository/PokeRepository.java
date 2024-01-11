@@ -7,8 +7,7 @@ import org.app.java5.domain.Pokemon;
 public interface PokeRepository {
 	
 	public void save (Pokemon poke);
-	public void delete (Long id);
-	public Pokemon findById (Integer id);
+	public Pokemon findById (Long id);
 	public Pokemon findByName (String name);
 	public List<Pokemon> findAll();
 

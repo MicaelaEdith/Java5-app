@@ -1,9 +1,11 @@
 package controllers;
 
 import java.io.IOException;
-import java.net.http.HttpClient;
-
+import org.app.java5.domain.Pokemon;
 import org.app.java5.services.PokeService;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,64 +19,56 @@ import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-
 @WebServlet("/api/pokemon")
 public class PokemonController extends HttpServlet {
 
 	private static final long serialVersionUID = 1296242401940549105L;
-	
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String pokemonIdOrName = req.getParameter("pokemon");
-
-
-        //Service de pokemon
-        PokeService serviceDB = new PokeService();
-        
-        try{
-            ;
-	           serviceDB.findById(Integer.parseInt(pokemonIdOrName));
-            
-        }catch(NumberFormatException e){
-        	 serviceDB.findByName(pokemonIdOrName);
-            
-        }
-    	
-  
-        boolean enBaseDeDatos = false;
-
-        // Construir la respuesta JSON
-       // JsonObject jsonResponse = new JsonObject();
-        //jsonResponse.addProperty("enBaseDeDatos", enBaseDeDatos);
-
-        // Enviar la respuesta al frontend
-        resp.setContentType("application/json");
-        resp.setCharacterEncoding("UTF-8");
-       // resp.getWriter().write(jsonResponse.toString());
+		String pokemonIdOrName = req.getParameter("pokemon");
+		PokeService serviceDB = new PokeService();
+		Pokemon poke = null;
 		
+		if(pokemonIdOrName != null) {
+			
 		
-		
-		
-		
-		/*
-		String Id = "1";
-		String url ="https://pokeapi.co/api/v2/pokemon/"+Id;
-		
+	        try {
+	        	Long id = Long.parseLong(pokemonIdOrName);
+	            poke = serviceDB.findById(id);
+	            
+	        } catch (NumberFormatException e) {
+	            
+	        	poke = serviceDB.findByName(pokemonIdOrName);
+	        }
+			
+			if(poke==null) {
+				
+				Client cliente = ClientBuilder.newClient();
+				WebTarget target = cliente.target("https://pokeapi.co/api/v2/pokemon/"+pokemonIdOrName); 
+				Invocation.Builder invocation = target.request(MediaType.APPLICATION_JSON);
+				
+				Response response = invocation.get();
+				
+				if (response.getStatus() == Response.Status.OK.getStatusCode()) {
+					
+				    try {
+				        ObjectMapper objectMapper = new ObjectMapper();
+				        JsonNode jsonResponse = objectMapper.readTree(response.readEntity(String.class));
 	
-		Client cliente = ClientBuilder.newClient();
-		WebTarget target = cliente.target(url);
-		Invocation.Builder invocation = target.request(MediaType.APPLICATION_JSON);
-		
-		Response response = invocation.get();
-		
-		String poke = (String)response.getEntity();
-		System.out.println(poke);
-		
-		resp.getWriter().print(poke);
-*/		
+				        long id = jsonResponse.get("id").asLong();
+				        String name = jsonResponse.get("name").asText();
+				        String urlImg = jsonResponse.get("sprites").get("front_default").asText();
+	
+				        Pokemon nuevoPokemon = new Pokemon(id, name, urlImg);
+				        serviceDB.save(nuevoPokemon);
+				    } catch (Exception e) {
+				        e.printStackTrace();
+				    }
+				}
+			}
+		}
 	}
-
-    
 
 }

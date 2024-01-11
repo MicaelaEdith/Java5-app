@@ -26,17 +26,11 @@ public class PokeRepositoryImpl implements PokeRepository {
 			List<Pokemon> pokemonList = new ArrayList<>();
 
 			while (resultSet.next()) {
-				Pokemon pokemon = new Pokemon();
-				pokemon.setId(resultSet.getInt("id"));
-				pokemon.setName(resultSet.getString("nombre"));
+				Pokemon pokemon = null;
+				pokemon = (Pokemon)resultSet;
 
 				pokemonList.add(pokemon);
 			}
-
-			//for (Pokemon pokemon : pokemonList) {
-			//	System.out.println("Pokemon encontrado: " + pokemon);
-			//}
-
 			return pokemonList;
 
 		} catch (SQLException e) {
@@ -46,21 +40,23 @@ public class PokeRepositoryImpl implements PokeRepository {
 	}
 
 	@Override
-	public Pokemon findById(Integer id) {
+	public Pokemon findById(Long id) {
 		String sql = "SELECT * FROM pokemon WHERE id = ?;";
 
 		try (Connection connection = AdministradorDeConexiones.getConnection();) {
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setInt(1, id);
+			statement.setLong(1, id);
 
 			ResultSet resultSet = statement.executeQuery();
 
 			if (resultSet.next()) {
-				Pokemon pokemon = new Pokemon();
-				pokemon.setId(resultSet.getInt("id"));
-				pokemon.setName(resultSet.getString("nombre"));
-				System.out.println(
-						"El pokemon con id: '" + id + "' fue encontrado. Su nombre es: " + pokemon.getName() + ".");
+				
+				Long Id = resultSet.getLong("id");
+				String name = resultSet.getString("nombre");
+				String urlImg = resultSet.getString("url_imagen");
+				
+				Pokemon pokemon = new Pokemon(Id, name, urlImg);
+				
 				return pokemon;
 			}
 
@@ -82,12 +78,8 @@ public class PokeRepositoryImpl implements PokeRepository {
 			ResultSet resultSet = statement.executeQuery();
 
 			if (resultSet.next()) {
-				Pokemon pokemon = new Pokemon();
-				pokemon.setId(resultSet.getInt("id"));
-				pokemon.setName(resultSet.getString("nombre"));
-				//
-				System.out
-						.println("El pokemon con '" + nombre + "' fue encontrado. Su Id es: " + pokemon.getId() + ".");
+				
+				Pokemon pokemon = (Pokemon)resultSet;
 				return pokemon;
 			}
 
@@ -95,53 +87,27 @@ public class PokeRepositoryImpl implements PokeRepository {
 			e.printStackTrace();
 		}
 
-		System.out.println("Pokemon con nombre: " + nombre + " no fue encontrado.");
 		return null;
 	}
 
 	@Override
 	public void save(Pokemon pokemon) {
-		String sql = "INSERT INTO pokemon (id, nombre) VALUES (?, ?);";
+		String sql = "INSERT INTO pokemon (id, nombre, url_imagen) VALUES (?, ?, ?);";
 
 		try (Connection connection = AdministradorDeConexiones.getConnection();
 				PreparedStatement statement = connection.prepareStatement(sql)) {
 
 			statement.setLong(1, pokemon.getId());
 			statement.setString(2, pokemon.getName());
+			statement.setString(3, pokemon.getUrlImg());
 
-			int saveOk = statement.executeUpdate();
+			statement.executeUpdate();
 
-			if (saveOk > 0) {
-				System.out.println("Pokemon guardado exitosamente en la base de datos.");
-			} else {
-				System.out.println("No se pudo guardar el Pokémon en la base de datos.");
-			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-	@Override
-	public void delete(Long id) {
-		String sql = "DELETE * from pokemon where id=" + id;
-		;
-
-		try (Connection connection = AdministradorDeConexiones.getConnection();
-				PreparedStatement statement = connection.prepareStatement(sql)) {
-
-			int deleted = statement.executeUpdate();
-
-			if (deleted > 0) {
-				System.out.println("Pokemon eliminado exitosamente de la base de datos.");
-			} else {
-				System.out.println("No se pudo eliminar el Pokémon en la base de datos.");
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-	}
 
 }
