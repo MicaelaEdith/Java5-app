@@ -15,3 +15,11 @@ CREATE TABLE `covid` (
 COLLATE='latin1_spanish_ci'
 ENGINE=InnoDB
 ;
+CREATE TABLE `json_post` (
+	`id` INT(11) NOT NULL,
+	`json` TEXT NOT NULL COLLATE 'latin1_spanish_ci',
+	PRIMARY KEY (`id`) USING BTREE
+)
+COLLATE='latin1_spanish_ci'
+ENGINE=InnoDB
+;

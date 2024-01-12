@@ -69,17 +69,20 @@ public class PokeRepositoryImpl implements PokeRepository {
 
 	@Override
 	public Pokemon findByName(String nombre) {
-		String sql = "SELECT * FROM pokemon WHERE nombre = ?;";
+		String sql = "SELECT * FROM pokemon WHERE nombre = "+nombre+";";
 
 		try (Connection connection = AdministradorDeConexiones.getConnection();) {
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setString(1, nombre);
 
 			ResultSet resultSet = statement.executeQuery();
 
 			if (resultSet.next()) {
 				
-				Pokemon pokemon = (Pokemon)resultSet;
+				Long Id = resultSet.getLong("id");
+				String name = resultSet.getString("nombre");
+				String urlImg = resultSet.getString("url_imagen");
+				
+				Pokemon pokemon = new Pokemon(Id,name,urlImg);
 				return pokemon;
 			}
 

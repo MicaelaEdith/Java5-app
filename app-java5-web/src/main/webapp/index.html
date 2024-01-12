@@ -35,13 +35,54 @@
 </head>
 
 <body>
+    <!-- Script JsonPost -->
+
+    <hr>
+    <div id="resultadoJson">
+
+        <label for="idPost">N° Id pos:</label>
+        <input type="number" id="idPost" />
+        <button onClick="JsonPost()">Buscar jsonPost</button>
+
+        <script>
+            function JsonPost() {
+                var id = document.getElementById("idPost").value;
+                fetch(`http://localhost:8080/app-java5-web/api/jsonplaceholder?id=${id}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`Error al obtener datos: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        mostrarResultadosJson(data);
+                    })
+                    .catch(error => {
+                        console.error("Error al obtener datos:", error);
+                        var resultadoDiv = document.getElementById("resultadoJson");
+                        resultadoDiv.innerHTML = "<p>Error al obtener datos.</p>";
+                    });
+            }
+
+            function mostrarResultadosJson(data) {
+                var resultadoDiv = document.getElementById("resultadoJson");
+
+                if (data && data.id && data.title) {
+                    resultadoDiv.innerHTML = `<p>ID: ${data.id}</p><p>Título: ${data.title}</p>`;
+                } else {
+                    resultadoDiv.innerHTML = "<p>Error al obtener datos.</p>";
+                }
+            }
+        </script>
+
+    </div>
 
     <!-- Script Covid Tracking -->
 
     <hr>
     <div id="resultadoCovid">
 
-        <label for="dateInput">Date Covid Cases:</label>
+        <label for="dateCovid">Date Covid Cases:</label>
         <input type="date" id="dateCovid" />
         <button onClick="buscarCovid()">Buscar Casos</button>
 
@@ -53,7 +94,7 @@
                         if (!response.ok) {
                             throw new Error(`Error al obtener datos: ${response.status}`);
                         }
-                        return response.text();
+                        return response.json(); // Cambiado a response.json()
                     })
                     .then(data => {
                         mostrarResultadosCovid(data);
@@ -67,12 +108,11 @@
 
             function mostrarResultadosCovid(data) {
                 var resultadoDiv = document.getElementById("resultadoCovid");
-                var response = JSON.parse(data);
 
-                if (response.success) {
-                    resultadoDiv.innerHTML = `<p>Resultados: ${response.data}</p>`;
+                if (data.success) {
+                    resultadoDiv.innerHTML = `<p>Resultados: ${data.data}</p>`;
                 } else {
-                    resultadoDiv.innerHTML = `<p>${response.data}</p>`;
+                    resultadoDiv.innerHTML = `<p>${data.data}</p>`;
                 }
             }
         </script>
@@ -142,8 +182,6 @@
                 }
                 return url.protocol === "http:" || url.protocol === "https:";
             }
-
-
 
         </script>
 
